@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background: red;
+    mix-blend-mode: multiply;
+}
+
+video {
+    width: 50%;
+    border: 2px solid black;
+    border-radius: 8px;
+    transform: scaleX(-1);
+}
+
+#rightEye {
+    filter: hue-rotate(120deg);
+}
