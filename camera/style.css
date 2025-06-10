@@ -7,12 +7,8 @@ body {
     mix-blend-mode: multiply;
 }
 
-video {
+canvas, video {
     width: 50%;
     border: 2px solid black;
     border-radius: 8px;
-}
-
-#rightEye {
-    filter: hue-rotate(120deg);
 }
