@@ -41,14 +41,14 @@ function hsl2rgb(h, s, l) {
 }
 
 function drawFrame() {
+    const leftEye = document.getElementById('leftEye');
     const rightEye = document.getElementById('rightEye');
-    const rightCanvas = document.querySelector('canvas');
-    if (rightEye.paused || rightEye.ended) return;
-    rightCanvas.width = rightEye.videoWidth;
-    rightCanvas.height = rightEye.videoHeight;
-    const ctx = rightCanvas.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(rightEye, 0, 0, rightCanvas.width, rightCanvas.height);
-    const frame = ctx.getImageData(0, 0, rightCanvas.width, rightCanvas.height);
+    if (leftEye.paused || leftEye.ended) return;
+    rightEye.width = leftEye.videoWidth;
+    rightEye.height = leftEye.videoHeight;
+    const ctx = rightEye.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(leftEye, 0, 0, rightEye.width, rightEye.height);
+    const frame = ctx.getImageData(0, 0, rightEye.width, rightEye.height);
     const data = frame.data;
     for (let i = 0; i < data.length; i += 4) {
         let [h, s, l] = rgb2hsl(data[i], data[i + 1], data[i + 2]);
@@ -62,13 +62,9 @@ function drawFrame() {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } } });
-        document.getElementById('leftEye').srcObject = stream;
-        const rightEye = document.getElementById('rightEye');
-        rightEye.srcObject = stream;
-        const rightCanvas = document.createElement('canvas');
-        rightEye.parentNode.insertBefore(rightCanvas, rightEye);
-        rightEye.style.display = 'none';
-        rightEye.addEventListener('play', drawFrame);
+        const leftEye = document.getElementById('leftEye');
+        leftEye.srcObject = stream;
+        leftEye.addEventListener('play', drawFrame);
     } catch (error) {
         console.error('Error accessing webcam: ', error);
     }
