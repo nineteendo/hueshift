@@ -12,7 +12,7 @@ function drawFrame() {
         [data[i], data[i + 1], data[i + 2]] = [data[i + 1], data[i + 2], data[i]];
     }
     ctx.putImageData(frame, 0, 0);
-    setTimeout(drawFrame, 0);
+    setTimeout(drawFrame, 20);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
